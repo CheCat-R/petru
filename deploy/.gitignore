@@ -1,0 +1,2 @@
+# El .env de producción completado tiene secretos: no va al repo.
+api.env.production

@@ -1,0 +1,35 @@
+# Secretos y entornos locales
+**/.env
+**/.env.local
+**/.env.*.local
+deploy/api.env.production
+
+# Dependencias
+**/node_modules/
+API/vendor/
+
+# Builds
+Sitio_web/build/
+Sitio_web/.react-router/
+panel-dashboard/dist/
+**/.vite/
+
+# Laravel: runtime
+API/storage/*.key
+API/storage/app/public/*
+!API/storage/app/public/.gitignore
+API/storage/logs/*
+API/storage/framework/cache/data/*
+API/storage/framework/sessions/*
+API/storage/framework/views/*
+API/bootstrap/cache/*.php
+API/.phpunit.result.cache
+
+# Sistema / editores
+.DS_Store
+Thumbs.db
+*.log
+.claude/
+
+# Historia de la plantilla del ERP, apartada (no es parte de este repo)
+panel-dashboard/.git-plantilla-erp/

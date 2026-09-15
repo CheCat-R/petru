@@ -1,0 +1,35 @@
+{
+  "name": "petru-sitio-web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "react-router dev",
+    "build": "react-router build && node scripts/sitemap.mjs",
+    "start": "react-router-serve ./build/server/index.js",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@fontsource-variable/playfair-display": "^5.2.10",
+    "@fontsource-variable/plus-jakarta-sans": "^5.2.10",
+    "@react-router/node": "^7.18.3",
+    "@tanstack/react-query": "^5.90.2",
+    "clsx": "^2.1.1",
+    "isbot": "^5",
+    "petru-sitio-web": "file:",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-router": "^7.18.3",
+    "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.4",
+    "@react-router/dev": "^7.18.3",
+    "@tailwindcss/vite": "^4.3.3",
+    "eslint": "^9.39.4",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "globals": "^17.4.0",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.0.4"
+  }
+}
