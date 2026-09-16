@@ -23,3 +23,10 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+# El .htaccess del dominio padre (WordPress hoy) prende LiteSpeed Cache y se hereda:
+# acá nunca se cachea nada (JSON con stock y sesiones / SPA con index.html sin caché).
+<IfModule LiteSpeed>
+  CacheDisable public /
+  CacheLookup off
+</IfModule>

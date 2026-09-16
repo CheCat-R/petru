@@ -2,8 +2,8 @@
 
 /**
  * Puente para Hostinger: este archivo vive en el document root del subdominio
- * (…/domains/api.petru.com.ar/public_html) y la aplicación Laravel completa
- * vive un nivel arriba, en ../laravel, fuera del alcance del navegador.
+ * (…/domains/petru.com.ar/public_html/api) y la aplicación Laravel completa
+ * vive en …/domains/petru.com.ar/laravel, fuera del alcance del navegador.
  *
  * Es el public/index.php de Laravel con las rutas apuntando a ../laravel.
  */
@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
-$laravel = __DIR__.'/../laravel';
+$laravel = __DIR__.'/../../laravel';
 
 if (file_exists($maintenance = $laravel.'/storage/framework/maintenance.php')) {
     require $maintenance;
