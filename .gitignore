@@ -33,3 +33,6 @@ Thumbs.db
 
 # Historia de la plantilla del ERP, apartada (no es parte de este repo)
 panel-dashboard/.git-plantilla-erp/
+
+# Backups del WordPress viejo (pesados, fuera del repo)
+backups-wordpress/
