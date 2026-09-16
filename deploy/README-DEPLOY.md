@@ -5,27 +5,30 @@ Tres piezas, tres (sub)dominios:
 | Qué | Dónde | Carpeta en el servidor |
 |---|---|---|
 | Sitio público (HTML estático) | `https://petru.com.ar` | `~/domains/petru.com.ar/public_html` |
-| Panel del taller (SPA) | `https://panel.petru.com.ar` | `~/domains/petru.com.ar/public_html/panel` |
-| API Laravel | `https://api.petru.com.ar` | `~/domains/petru.com.ar/laravel` (app) + `public_html/api` (puente) |
+| Panel del taller (SPA) | `https://panel.petru.com.ar` | `~/domains/panel.petru.com.ar/public_html` |
+| API Laravel | `https://api.petru.com.ar` | `~/domains/api.petru.com.ar/laravel` (app) + `public_html` (puente) |
 
 Todo se sube con `deploy/deploy.sh` desde Git Bash. Lo que hay que hacer a mano
 en hPanel es una sola vez (paso 1).
 
 ## 1. Preparar en hPanel (una vez)
 
-1. **Subdominios**: petru.com.ar → Dominios → Subdominios → crear `api` y `panel`
-   con **"Carpeta personalizada"** marcada y nombre `api` / `panel`. Quedan en
-   `~/domains/petru.com.ar/public_html/api` y `…/public_html/panel`. (Sin la
-   casilla apuntan a la raíz del dominio y responden lo mismo que petru.com.ar.)
+1. **Subdominios**: Dominios → Subdominios → crear `api` y `panel`. Hostinger
+   les crea `~/domains/api.petru.com.ar/public_html` y `…/panel.petru.com.ar/public_html`.
+
 2. **SSL**: Seguridad → SSL → activar para el dominio y los dos subdominios
    (Let's Encrypt, gratis). Esperar a que los tres estén "Activo".
+
 3. **PHP**: Avanzado → Configuración PHP → versión **8.2 o superior**. En
    "Extensiones" confirmar `pdo_mysql`, `mbstring`, `openssl`, `fileinfo`, `gd`
    (vienen activas por defecto).
+
 4. **Base de datos**: Bases de datos → MySQL → crear base y usuario (quedan con
    prefijo `u123456789_`). Anotar nombre, usuario y contraseña.
+
 5. **Casilla de mail**: Emails → crear `hola@petru.com.ar` (o la que usen). Es
    la que manda las confirmaciones de pedido. Anotar la contraseña.
+
 6. **SSH**: Avanzado → Acceso SSH → activar. Anotar usuario, IP y puerto
    (suele ser 65002). Opcional pero recomendado: cargar ahí tu clave pública
    (`cat ~/.ssh/id_ed25519.pub`) para no tipear la contraseña.
@@ -66,7 +69,7 @@ actualizan en el próximo `./deploy/deploy.sh sitio`.
 ### Cuenta del panel
 ```bash
 ssh -p 65002 u123456789@123.45.67.89
-cd ~/domains/petru.com.ar/laravel
+cd ~/domains/api.petru.com.ar/laravel
 php artisan petru:usuario delfina@petru.com.ar --nombre="Delfina Cherey" --password="una-clave-larga-123"
 ```
 Después, desde el panel (Cuenta → Usuarios) se crean las demás.
@@ -74,7 +77,7 @@ Después, desde el panel (Cuenta → Usuarios) se crean las demás.
 ### Cron (obligatorio: mails y liberación de reservas)
 hPanel → Avanzado → Cron Jobs → agregar, **cada minuto** (`* * * * *`):
 ```
-cd /home/u123456789/domains/petru.com.ar/laravel && php artisan schedule:run >> /dev/null 2>&1
+cd /home/u123456789/domains/api.petru.com.ar/laravel && php artisan schedule:run >> /dev/null 2>&1
 ```
 (Reemplazar `u123456789` por el usuario real; la ruta completa está en `pwd`.)
 
@@ -110,14 +113,12 @@ mantenimiento: `php artisan down` / `php artisan up`.
 
 ## Si algo falla
 
-- **500 en la API**: `tail -50 ~/domains/petru.com.ar/laravel/storage/logs/laravel-*.log`.
+- **500 en la API**: `tail -50 ~/domains/api.petru.com.ar/laravel/storage/logs/laravel-*.log`.
   Con `APP_DEBUG=false` el navegador no muestra el motivo; el log sí.
 - **`composer: command not found`**: Hostinger lo tiene en `/usr/local/bin/composer`;
   si no, `curl -sS https://getcomposer.org/installer | php` y usar `php composer.phar`.
-- **Imágenes subidas dan 404**: falta el link `public_html/api/storage` (lo crea
-  `deploy.sh api`; a mano: `ln -s ~/domains/petru.com.ar/laravel/storage/app/public ~/domains/petru.com.ar/public_html/api/storage`).
-- **Al reemplazar el WordPress** por el sitio nuevo: vaciar `public_html` **sin
-  tocar** las subcarpetas `api/` y `panel/`.
+- **Imágenes subidas dan 404**: falta el link `public_html/storage` (lo crea
+  `deploy.sh api`; a mano: `ln -s ~/domains/api.petru.com.ar/laravel/storage/app/public ~/domains/api.petru.com.ar/public_html/storage`).
 - **CORS en el navegador**: el origen que llama tiene que estar en
   `CORS_ALLOWED_ORIGINS`, con `https` y sin barra final.
 - **Cambié el .env**: `php artisan config:cache` de nuevo (el deploy lo hace).

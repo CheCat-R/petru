@@ -79,7 +79,7 @@ if [ ! -f .env ]; then
 fi
 composer install --no-dev --optimize-autoloader --no-interaction --quiet
 # APP_KEY solo la primera vez: regenerarla rompería las sesiones y lo cifrado (credenciales).
-if grep -Eq '^APP_KEY=\s*$' .env; then php artisan key:generate --force --no-interaction; fi
+if ! grep -Eq '^APP_KEY=base64:' .env; then php artisan key:generate --force --no-interaction; fi
 php artisan migrate --force --no-interaction
 # El link de storage apunta a public_html/api/storage (el puente usa usePublicPath).
 rm -rf ~/$REMOTO_API/storage

@@ -24,6 +24,7 @@ class SitioController extends Controller
                     'pickup' => (bool) $envios->retiro()['habilitado'],
                 ],
             ]])
-            ->header('Cache-Control', 'public, max-age=60');
+            // Sin caché pública: el CDN del hosting guardaría la respuesta sin las cabeceras CORS.
+            ->header('Cache-Control', 'no-cache');
     }
 }
