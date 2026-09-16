@@ -1,9 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
 import clsx from 'clsx';
-import { Link } from 'react-router';
+import { Link, redirect } from 'react-router';
 
 import Boton from '../components/ui/Boton';
 import Etiqueta from '../components/ui/Etiqueta';
+import { MOSTRAR_LEGALES_CONSUMIDOR } from '../data/sitio';
 import { useContacto } from '../lib/contenido';
 import { ErrorApi, enviarConsulta } from '../lib/api';
 import { meta as construirMeta } from '../lib/seo';
@@ -14,6 +15,9 @@ export const meta = () =>
     titulo: 'Botón de arrepentimiento',
     descripcion: 'Revocá tu compra dentro de los 10 días de recibida, sin dar motivos y sin costo, como establece la Ley 24.240.',
   });
+
+// Mientras el botón esté apagado, la URL vieja lleva a la política de devolución.
+export const clientLoader = () => (MOSTRAR_LEGALES_CONSUMIDOR ? null : redirect('/devoluciones'));
 
 const campo =
   'w-full rounded-xl border bg-white px-4 py-3 text-tinta placeholder:text-piedra-400 transition-colors focus:outline-none';

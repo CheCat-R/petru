@@ -1,7 +1,7 @@
 import { Link } from 'react-router';
 
 import { enlacesLegales } from '../../data/legales';
-import { footer, sitio } from '../../data/sitio';
+import { MOSTRAR_LEGALES_CONSUMIDOR, footer, sitio } from '../../data/sitio';
 import { useContenidoOpcional } from '../../lib/contenido';
 
 const REDES = {
@@ -101,6 +101,7 @@ export default function Footer() {
       </div>
 
       {/* Obligatorios para venta online en Argentina: Res. 424/2020 y 244/2020 */}
+      {MOSTRAR_LEGALES_CONSUMIDOR && (
       <div className="border-t border-piedra-300/60">
         <div className="contenedor flex flex-col gap-3 py-5 text-xs text-piedra-500 sm:flex-row sm:items-center sm:gap-8">
           <Link
@@ -122,6 +123,7 @@ export default function Footer() {
           ))}
         </div>
       </div>
+      )}
 
       {/* Barra legal */}
       <div className="border-t border-piedra-300/60">

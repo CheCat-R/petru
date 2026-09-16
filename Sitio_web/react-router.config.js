@@ -1,5 +1,7 @@
 import { loadEnv } from 'vite';
 
+import { MOSTRAR_LEGALES_CONSUMIDOR } from './app/data/sitio.js';
+
 /**
  * Configuración de React Router (framework mode).
  *
@@ -18,7 +20,8 @@ export default {
   async prerender() {
     const fijas = [
       '/', '/galeria', '/nosotros', '/contacto',
-      '/envios', '/cuidados', '/devoluciones', '/privacidad', '/terminos', '/arrepentimiento',
+      '/envios', '/cuidados', '/devoluciones', '/privacidad', '/terminos',
+      ...(MOSTRAR_LEGALES_CONSUMIDOR ? ['/arrepentimiento'] : []),
     ];
 
     // Una ficha estática por cada producto publicado. Si un producto se carga

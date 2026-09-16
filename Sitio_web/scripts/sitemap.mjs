@@ -8,7 +8,7 @@
 import { writeFile } from 'node:fs/promises';
 import { loadEnv } from 'vite';
 
-import { sitio } from '../app/data/sitio.js';
+import { MOSTRAR_LEGALES_CONSUMIDOR, sitio } from '../app/data/sitio.js';
 
 const env = loadEnv(process.env.NODE_ENV ?? 'production', process.cwd(), 'VITE_');
 const apiUrl = (env.VITE_API_URL ?? 'http://localhost:8000/api').replace(/\/$/, '');
@@ -24,7 +24,7 @@ const fijas = [
   ['/devoluciones', 'yearly', '0.3'],
   ['/privacidad', 'yearly', '0.2'],
   ['/terminos', 'yearly', '0.2'],
-  ['/arrepentimiento', 'yearly', '0.2'],
+  ...(MOSTRAR_LEGALES_CONSUMIDOR ? [['/arrepentimiento', 'yearly', '0.2']] : []),
 ];
 
 const respuesta = await fetch(`${apiUrl}/productos?por_pagina=60`, { headers: { Accept: 'application/json' } });

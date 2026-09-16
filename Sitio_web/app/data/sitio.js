@@ -5,6 +5,14 @@
  * de la API sin tocar los componentes.
  */
 
+/**
+ * Botón de arrepentimiento (Res. 424/2020) y enlace a Defensa del Consumidor
+ * (Res. 244/2020). Apagado a pedido del taller por ahora: saca la franja del
+ * footer, el enlace en las páginas legales, la ruta del prerender y del sitemap.
+ * Para volver a mostrarlos: true y `./deploy/deploy.sh sitio`.
+ */
+export const MOSTRAR_LEGALES_CONSUMIDOR = false;
+
 export const sitio = {
   nombre: 'Pëtru',
   dominio: 'https://petru.com.ar',

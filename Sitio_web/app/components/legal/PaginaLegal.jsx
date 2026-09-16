@@ -2,6 +2,7 @@ import { Link } from 'react-router';
 
 import Etiqueta from '../ui/Etiqueta';
 import { ACTUALIZADO, legales } from '../../data/legales';
+import { MOSTRAR_LEGALES_CONSUMIDOR } from '../../data/sitio';
 
 /** Render de una página legal a partir de su entrada en `data/legales.js`. */
 export default function PaginaLegal({ pagina }) {
@@ -52,11 +53,13 @@ export default function PaginaLegal({ pagina }) {
                 </Link>
               </li>
             ))}
-            <li>
-              <Link to="/arrepentimiento" className="text-sm font-medium text-piedra-700 transition-colors hover:text-ambar-600">
-                Botón de arrepentimiento
-              </Link>
-            </li>
+            {MOSTRAR_LEGALES_CONSUMIDOR && (
+              <li>
+                <Link to="/arrepentimiento" className="text-sm font-medium text-piedra-700 transition-colors hover:text-ambar-600">
+                  Botón de arrepentimiento
+                </Link>
+              </li>
+            )}
           </ul>
         </aside>
       </div>

@@ -12,7 +12,7 @@
  * empieza con "- " se renderiza como ítem de lista.
  */
 
-import { contacto as contactoFijo, sitio } from './sitio';
+import { MOSTRAR_LEGALES_CONSUMIDOR, contacto as contactoFijo, sitio } from './sitio';
 
 const ACTUALIZADO = '11 de septiembre de 2026';
 
@@ -141,7 +141,7 @@ export function construirLegales(contenido) {
       {
         titulo: 'Derecho de arrepentimiento',
         parrafos: [
-          `Por tratarse de una compra a distancia, tenés derecho a revocar la aceptación dentro de los 10 días corridos desde que recibiste la pieza, sin necesidad de dar motivos y sin costo (art. 34 de la Ley 24.240). Para ejercerlo, usá el botón de arrepentimiento que está al pie de todas las páginas del sitio, o escribinos a ${contacto.email.direccion}.`,
+          `Por tratarse de una compra a distancia, tenés derecho a revocar la aceptación dentro de los 10 días corridos desde que recibiste la pieza, sin necesidad de dar motivos y sin costo (art. 34 de la Ley 24.240). Para ejercerlo, ${MOSTRAR_LEGALES_CONSUMIDOR ? 'usá el botón de arrepentimiento que está al pie de todas las páginas del sitio, o ' : ''}escribinos a ${contacto.email.direccion}.`,
           'La pieza tiene que volver en el estado en que la recibiste y, en lo posible, en su embalaje original. Los gastos de devolución del envío corren por nuestra cuenta. Reintegramos el dinero por el mismo medio de pago dentro de los 10 días hábiles de recibida la pieza en el taller.',
         ],
       },
@@ -276,12 +276,12 @@ export function construirLegales(contenido) {
           'Los diseños, fotografías y textos de este sitio son de Pëtru. Podés compartirlos citando la fuente; no podés reproducirlos con fines comerciales sin autorización.',
         ],
       },
-      {
+      ...(MOSTRAR_LEGALES_CONSUMIDOR ? [{
         titulo: 'Defensa del consumidor',
         parrafos: [
           'Para consultas o reclamos ante la autoridad de aplicación podés ingresar a la Dirección Nacional de Defensa del Consumidor: argentina.gob.ar/defensadelconsumidor, o a la oficina de Defensa del Consumidor de tu jurisdicción.',
         ],
-      },
+      }] : []),
       {
         titulo: 'Cambios en estas condiciones',
         parrafos: [
